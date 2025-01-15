@@ -3,6 +3,10 @@ import { federation } from "@module-federation/vite";
 import { defineConfig } from "vite";
 
 export default defineConfig({
+  preview: {
+    origin: "http://localhost:8000",
+    port: 8000,
+  },
   server: {
     origin: "http://localhost:8000",
     port: 8000,
@@ -14,6 +18,7 @@ export default defineConfig({
       manifest: true,
       remotes: {
         remote: "remote@http://localhost:9000/mf-manifest.json",
+        webpackRemote: "webpackRemote@http://localhost:9001/remoteEntry.js",
       },
       shared: {
         react: {
