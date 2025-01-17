@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkremote=self.webpackChunkremote||[]).push([[400],{400:(e,t,n)=>{var l=n(758);const r=()=>l.createElement(l.StrictMode,null,l.createElement("h1",null,"Main website"));n(143).render(l.createElement(r,null),document.getElementById("root"))}}]);

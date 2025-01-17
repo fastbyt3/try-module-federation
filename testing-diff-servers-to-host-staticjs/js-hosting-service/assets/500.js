@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkremote=self.webpackChunkremote||[]).push([[500],{500:(e,t,n)=>{n.r(t),n.d(t,{default:()=>r});var l=n(815),u=n.n(l);const r=()=>{const[e,t]=(0,l.useState)(0);return u().createElement("div",null,u().createElement("h2",null,"Value = ",e),u().createElement("button",{onClick:()=>t(e+1)},"+"))}}}]);

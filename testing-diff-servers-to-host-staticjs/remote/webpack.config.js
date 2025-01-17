@@ -2,6 +2,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin =
   require("webpack").container.ModuleFederationPlugin;
 const path = require("path");
+const deps = require("./package.json").dependencies;
 
 module.exports = {
   entry: "./src/index",
@@ -41,17 +42,22 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "main",
-      filename: "remoteEntry.js",
-      remotes: {
-        remoteFoo: `promise new Promise((resolve, reject) => {
-fetch('http://localhost:8000/')
-})`,
+      name: "remote",
+      exposes: {
+        "./Counter": "./src/components/Counter",
       },
-      shared: [
-        "styled-components",
-        { react: { singleton: true }, "react-dom": { singleton: true } },
-      ],
+      shared: {
+        react: {
+          singleton: true,
+          requiredVersion: deps.react,
+          eager: true, // Add this
+        },
+        "react-dom": {
+          singleton: true,
+          requiredVersion: deps["react-dom"],
+          eager: true, // Add this
+        },
+      },
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
