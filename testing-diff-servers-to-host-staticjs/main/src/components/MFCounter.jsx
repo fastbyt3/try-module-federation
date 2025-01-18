@@ -2,10 +2,10 @@ import React, { Suspense } from "react";
 import { importRemote } from "../utils/importRemote";
 
 const CounterFromRemote = React.lazy(() => importRemote({
-	url: "http://localhost:9999",
+	url: "http://localhost:9999/1.1.0",
 	scope: "remote",
 	module: "Counter",
-	remoteEntryFileName: "remote.js",
+	remoteEntryFileName: "remoteEntry.js",
 }));
 
 export default () => (

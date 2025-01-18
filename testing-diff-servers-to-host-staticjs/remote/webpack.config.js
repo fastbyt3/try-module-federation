@@ -2,12 +2,11 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin =
   require("webpack").container.ModuleFederationPlugin;
 const path = require("path");
-const deps = require("./package.json").dependencies;
+
+const { name, version } = require("./package.json");
 
 module.exports = {
   entry: "./src/index",
-
-  mode: "development",
 
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
@@ -23,9 +22,12 @@ module.exports = {
     static: {
       directory: path.join(__dirname, "dist"),
     },
-    port: 8000,
+    port: 9000,
   },
   output: {
+    filename: `${version}/[name].[contenthash:8].js`,
+    chunkFilename: `${version}/[name].[contenthash:8].chunk.js`,
+    assetModuleFilename: "static/media/[name].[hash][ext]",
     publicPath: "auto",
   },
   module: {
@@ -42,22 +44,14 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "remote",
+      name: name,
+      filename: `${version}/remoteEntry.js`,
       exposes: {
         "./Counter": "./src/components/Counter",
       },
-      shared: {
-        react: {
-          singleton: true,
-          requiredVersion: deps.react,
-          eager: true, // Add this
-        },
-        "react-dom": {
-          singleton: true,
-          requiredVersion: deps["react-dom"],
-          eager: true, // Add this
-        },
-      },
+      shared: [
+        { react: { singleton: true }, "react-dom": { singleton: true } },
+      ],
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",

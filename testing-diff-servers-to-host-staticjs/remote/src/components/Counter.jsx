@@ -5,6 +5,7 @@ const Counter = () => {
 
 	return (
 		<div>
+			<h1>This is a counter MFE</h1>
 			<h2>Value = {val}</h2>
 			<button onClick={() => setVal(val + 1)}>+</button>
 		</div>
